@@ -17,5 +17,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  bundler (= 1.2.0.pre)
+  eventmachine (~> 1.0.0.rc.4)
   sinatra (= 1.1.0)
   thin
