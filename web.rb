@@ -21,9 +21,10 @@ end
 
 get '/' do
   @version = version
-  @user_name = 'mark'
+  @user_name = 'Rails developer'
   @copyright_year = '2012'
   @site_name = site_name
+  @owner_name = 'Mark D. Blackwell'
   @blog_post_url = 'http://markdblackwell.blogspot.com/2012/07/manage-long-running-external-webservice.html'
   @body_text = "We offer a way to scale Rails apps using "\
       "RabbitMQ, Memcache and PusherApp. "\
