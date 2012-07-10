@@ -30,9 +30,9 @@ get '/' do
       "a normal cloud Rails app much more scalable "\
       "by offloading its external webservice requests using "\
       "RabbitMQ, Memcache and PusherApp "\
-      (available soon). "\
+      "(available soon). "\
       "See <a href=\"#{
-      @blog_post_url
+          @blog_post_url
       }\">this</a> blog post."
   erb :'index.html'
 end
