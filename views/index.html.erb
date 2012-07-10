@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 3.0 License
+
+Name       : Resolved
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20120205
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title><%= @site_name %></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<div id="wrapper">
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#"><%= @site_name %></a></h1>
+		</div>
+		<div id="menu">
+			<ul>
+				<li class="first current_page_item"><a href="#">Homepage</a></li>
+			</ul>
+			<br class="clearfix" />
+		</div>
+	</div>
+	<div id="page">
+		<div id="content">
+			<div id="post1">
+				<h2>Welcome, <%= @user_name %>, to Resolved v<%= @version %>.</h2>
+				<p><%= @body_text %></p>
+			</div>
+			<br class="clearfix" />
+		</div>
+		<div id="sidebar">
+			<h3>News</h3>
+			<div class="date-list">
+				<ul class="list date-list">
+					<li class="first" class="last"><span class="date">July 9, 2012</span> <a href="#">This announcement</a></li>
+				</ul>
+			</div>
+		</div>
+		<br class="clearfix" />
+	</div>
+</div>
+<div id="footer">
+Copyright (c) <%= @copyright_year %> <%= @site_name %>, 
+All rights reserved. 
+'resolved' template design by <a href="http://www.freecsstemplates.org/">FCT</a>.
+</div>
+</body>
+</html>
