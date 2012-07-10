@@ -35,40 +35,87 @@ Released   : 20120205
 	<div id="page">
 		<div id="content">
 			<div id="post1">
-				<h2>Welcome, <%= @user_name %>, to <%= @site_name %> v<%= @version %>.</h2>
+				<h2>Welcome, <%= @user_name %>, to <%= @site_name %>.</h2>
 <p>
-We make 
-cloud Rails apps 
-more scalable. 
+We help Rails apps 
+scale
+in the cloud. 
 </p>
 <p>
-Your Rails app 
-can be any normal kind 
-(threaded or unthreaded, synchronous, Rails 2 or 3).
-(Actually, any webapp will do.) 
+Let's say you have a Rails app --
+of the usual kind 
+(threaded or unthreaded, synchronous, 
+Rails 3 
+or 
+Rails 2).
+(Any kind of web app will do; it doesn't 
+have to be Rails.) 
 </p>
 <p>
-It works 
-by offloading your (external) webservice requests
-with RabbitMQ, Memcache and PusherApp 
--- see 
+It slows to a crawl 
+if external services you access 
+aren't there right away.
+Because (as you know) 
+you can't juggle too many 
+thousands (or even scores) 
+of Rails instances 
+at once.
+</p>
+<p>
+
+Delays also 
+come from 
+browser short-polling. 
+Either 
+checking too late, or 
+checking too early. 
+Loading up the server.
+</p>
+<p>
+So the user experience 
+isn't really 
+what it should be.
+And it bothers you. 
+That way (you know) 
+you can't win.
+(So you're interested in 
+node.js and asynchronous processing.)
+But for a big app ...
+it's too hard to code it 
+that way!
+</p>
+<p>
+We can help. 
+We accept
+offloaded 
+external webservice requests
+(at your pleasure) 
+with RabbitMQ, Memcache and PusherApp. 
+When we receive a response to a request, 
+we Memcache it (for you) 
+and (directly)
+tell 
+your 
+browser to try 
+its AJAX request again. (See 
 <a href="<%= @blog_post_url %>">this</a> 
-blog post. 
+blog post.)
 </p>
 <p>
 Try it for free! 
 -- (at this time).
-For setup information,	
-email 
+For setup information, email 
 markdblackwell01 (at) @gmail.com
--- (more to come on this site).
+-- (there'll be more info 
+here later).
 </p>
 <p>
-If the service 
-becomes extremely busy, 
+If our service 
+becomes terribly busy, 
 we might start charging a few cents
-(for a huge number of transactions, 
-or per hour of clock time).
+(for some huge number of 
+events,
+or for an hour of clock time).
 </p>
 <p>
 (Available soon.) 
