@@ -26,8 +26,11 @@ get '/' do
   @site_name = site_name
   @owner_name = 'Mark D. Blackwell'
   @blog_post_url = 'http://markdblackwell.blogspot.com/2012/07/manage-long-running-external-webservice.html'
-  @body_text = "We offer a way to scale Rails apps using "\
-      "RabbitMQ, Memcache and PusherApp. "\
+  @body_text = "We offer a general way to make "\
+      "a normal cloud Rails app much more scalable "\
+      "by offloading its external webservice requests using "\
+      "RabbitMQ, Memcache and PusherApp "\
+      (available soon). "\
       "See <a href=\"#{
       @blog_post_url
       }\">this</a> blog post."
