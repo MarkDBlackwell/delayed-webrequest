@@ -44,7 +44,7 @@ br.clearfix {
 
 h1,h2,h3,h4 {
 	letter-spacing: -1px;
-	text-transform: lowercase;
+/*	text-transform: lowercase; */
 	font-weight: normal;
 }
 
@@ -105,7 +105,7 @@ ul h4 {
 	text-align: center;
 	margin: 0 0 20px 0;
 	color: #808384;
-	text-transform: lowercase;
+/*	text-transform: lowercase; */
 }
 
 #footer a {
@@ -149,7 +149,7 @@ ul h4 {
 
 #menu a {
 	font-size: 1.5em;
-	text-transform: lowercase;
+/*	text-transform: lowercase; */
 	letter-spacing: -1px;
 	color: #FFFFFF;
 	text-decoration: none;

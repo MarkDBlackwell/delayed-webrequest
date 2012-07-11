@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 3.0 License
+
+Name       : Resolved
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20120205
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title><%= @site_name %></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<div id="wrapper">
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#"><%= @site_name %></a></h1>
+		</div>
+		<div id="menu">
+			<ul>
+				<li class="first current_page_item"><a href="#">Homepage</a></li>
+				<li class="last current_page_item"><a href="#">Login</a></li>
+			</ul>
+			<br class="clearfix" />
+		</div>
+	</div>
+	<div id="page">
+		<div id="content">
+			<div id="post1">
+				<h2>Welcome, <%= @user_name %>, to <%= @site_name %>.</h2>
+<p>
+We help Rails apps 
+scale
+in the cloud. 
+</p>
+<p>
+Let's say you have a Rails app --
+of the usual kind 
+(threaded or unthreaded, synchronous, 
+Rails 3 
+or 
+Rails 2).
+(Any kind of web app will do; it doesn't 
+have to be Rails.) 
+</p>
+<p>
+It slows to a crawl 
+if external services you access 
+aren't there right away.
+Because (as you know) 
+you can't juggle too many 
+thousands (or even scores) 
+of Rails instances 
+at once.
+</p>
+<p>
+
+Delays also 
+come from 
+browser short-polling. 
+Either 
+checking too late, or 
+checking too early. 
+Loading up the server.
+</p>
+<p>
+So the user experience 
+isn't really 
+what it should be.
+And it bothers you. 
+That way (you know) 
+you can't win.
+(So you're interested in 
+node.js and asynchronous processing.)
+But for a big app ...
+it's too hard to code it 
+that way!
+</p>
+<p>
+We can help. 
+We accept
+offloaded 
+external webservice requests
+(at your pleasure) 
+with RabbitMQ, Memcache and PusherApp. 
+When we receive a response to a request, 
+we Memcache it (for you) 
+and (directly)
+tell 
+your 
+browser to try 
+its AJAX request again. (See 
+<a href="<%= @blog_post_url %>">this</a> 
+blog post.)
+</p>
+<p>
+Try it for free! 
+-- (at this time).
+For setup information, email 
+markdblackwell01 (at) @gmail.com
+-- (there'll be more info 
+here later).
+</p>
+<p>
+If our service 
+becomes terribly busy, 
+we might start charging a few cents
+(for some huge number of 
+events,
+or for an hour of clock time).
+</p>
+<p>
+(Available soon.) 
+</p>
+			</div>
+			<br class="clearfix" />
+		</div>
+		<div id="sidebar">
+			<h3>News</h3>
+			<div class="date-list">
+				<ul class="list date-list">
+					<li class="first last"><span class="date">July 9, 2012</span> <a href="#">This announcement</a></li>
+				</ul>
+			</div>
+		</div>
+		<br class="clearfix" />
+	</div>
+</div>
+<div id="footer">
+Copyright (c) <%= @copyright_year %> <%= @owner_name %>, 
+All rights reserved. 
+'resolved' template design by <a href="http://www.freecsstemplates.org/">FCT</a>.
+</div>
+</body>
+</html>

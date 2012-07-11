@@ -1,8 +1,5 @@
-*.zip
+.bundle/config
+.env
 download/
 out/
-<<<<<<< HEAD
-.env
-.bundle/config
-=======
->>>>>>> 03cadc9c29966d799da88ec415a9d9514b95b9d8
+*.zip
