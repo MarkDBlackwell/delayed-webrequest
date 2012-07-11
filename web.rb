@@ -4,12 +4,19 @@ require 'sinatra/base'
 
 class DelayedWebRequest < Sinatra::Base
 
+# Start the server if ruby file executed directly
+  run! :port => 5000, :server => 'webrick' if app_file == $0
+
   get '/hello/:name' do
     "Hello, #{params[:name]} (from #{site_name} v#{version})!"
   end
 
   get '/hello' do
-    "Hello, world (from #{site_name} v#{version})!"
+    "Hello, world2 (from #{site_name} v#{version})!"
+  end
+
+  get '/login' do
+    "nothing here yet."
   end
 
   get '/' do
@@ -17,6 +24,7 @@ class DelayedWebRequest < Sinatra::Base
     erb :'index.html'
   end
 
+#-------------
   protected
 
   def version
@@ -26,7 +34,6 @@ class DelayedWebRequest < Sinatra::Base
   def site_name
     'Delayed Web Request'
   end
-
 
   def set_home
     @version        =  version

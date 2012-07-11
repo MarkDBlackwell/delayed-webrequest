@@ -13,3 +13,5 @@ gem 'rack' # For reloading during development, use shotgun.
 gem 'sinatra'
 
 gem 'thin'
+
+gem 'tilt'

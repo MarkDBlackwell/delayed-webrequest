@@ -27,3 +27,4 @@ DEPENDENCIES
   rack
   sinatra
   thin
+  tilt
