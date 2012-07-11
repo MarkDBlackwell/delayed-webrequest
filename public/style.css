@@ -134,6 +134,7 @@ ul h4 {
 #logo h1 {
 	font-family: Arvo, serif;
 	font-size: 3em;
+	text-transform: lowercase;
 }
 
 #menu {
@@ -149,7 +150,7 @@ ul h4 {
 
 #menu a {
 	font-size: 1.5em;
-/*	text-transform: lowercase; */
+	text-transform: lowercase;
 	letter-spacing: -1px;
 	color: #FFFFFF;
 	text-decoration: none;
@@ -239,6 +240,10 @@ ul h4 {
 
 #sidebar h2, #sidebar h3, #sidebar h4 {
 	color: #000000;
+}
+
+#sidebar h3 {
+	text-transform: lowercase;
 }
 
 #sidebar ul {
