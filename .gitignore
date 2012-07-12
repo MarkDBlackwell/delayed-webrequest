@@ -1,6 +1,7 @@
 *.zip
 /.bundle/config
-/.env
+.env
 /download/
 /out/
 /private/
+copy-of-*
