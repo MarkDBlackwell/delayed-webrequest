@@ -22,11 +22,11 @@ class DelayedWebRequest < Sinatra::Base
   end
 
   get '/all' do
-    set_up_amqp
-    return '@bunny_queue is nil' if @bunny_queue.nil?
+    s = set_up_amqp
     set_up_memcachier
     set_up_pusher
-    'Ran all'
+##  'Ran all'
+    s
   end
 
   get '/amqp' do
@@ -78,10 +78,20 @@ class DelayedWebRequest < Sinatra::Base
   def set_up_amqp
     u = ENV['CLOUDAMQP_URL']
     return 'u is nil' if u.nil?
+    my_queue_name = 'test1'
+    default_exchange_name = '' # Binds to all queues.
+    my_exchange_name = default_exchange_name
+
     b = Bunny.new
-    b.start # Does not return b.
-    @bunny_queue = b.queue 'test1'
-    b.exchange('').publish 'Hello from Sinatra app, set_up_amqp', :key => 'test1'
+    b.start # Does not return b. Start a connection to AMQP.
+
+    q = b.queue my_queue_name # Create or access the queue.
+    raise 'q is nil' if q.nil?
+
+    e = b.exchange my_exchange_name # Use a direct exchange.
+    s = 'From amqp: ' + q.pop[:payload].to_s
+    b.stop # Close the connection to AMQP.
+    s
   end
 
   def set_up_memcachier

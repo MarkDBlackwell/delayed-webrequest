@@ -1,6 +1,8 @@
 *.zip
 /.bundle/config
-.env
+/.env
+/.foreman
+/local-env
 /download/
 /out/
 /private/
