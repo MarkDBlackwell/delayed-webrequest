@@ -2,20 +2,38 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'bunny'
 require 'dalli'
-
-# require 'memcachier' # As of July 12, 2012 not working (v 0.0.1).
+## require 'memcachier' # As of July 12, 2012 not working (v 0.0.1).
 require 'pusher'
 
 class DelayedWebRequest < Sinatra::Base
 
-#  set :cache, (Dalli::Client.new 'localhost:11211')
-#  set :cache, (Dalli::Client.new '127.0.0.1:11211')
-#  set :cache, (Dalli::Client.new '127.0.0.1:11211', :username => 'mark', :password => '')
-#  set :enable_cache, true
+  configure do
+    enable :dump_errors
+    enable :lock
+    enable :logging
+    enable :raise_errors
+
+    disable :threaded
+  end
 
   configure :development do
     Sinatra::Application.reset!    
     register Sinatra::Reloader
+  end
+
+  get '/all' do
+    set_up_amqp
+    return '@bunny_queue is nil' if @bunny_queue.nil?
+    set_up_memcachier
+    set_up_pusher
+    'Ran all'
+  end
+
+  get '/amqp' do
+    set_up_amqp
+    return '@bunny_queue is nil' if @bunny_queue.nil?
+##  'From amqp: ' + @bunny_queue.pop[:payload].to_s
+    'Ran amqp'
   end
 
   get '/hello/:name' do
@@ -30,20 +48,14 @@ class DelayedWebRequest < Sinatra::Base
     "nothing here yet."
   end
 
-  get '/pusher' do
-    set_up_pusher
-  end
-
-  get '/amqp' do
-    set_up_amqp
-#    'trying amqp' + @bunny_queue.pop[:payload].to_s
-    @bunny_queue.pop[:payload].to_s
-    'trying amqp'
-  end
-
   get '/mem' do
     set_up_memcachier
     'ran memcachier'
+  end
+
+  get '/pusher' do
+    set_up_pusher
+    'Pushed to pusher'
   end
 
   get '/' do
@@ -54,40 +66,6 @@ class DelayedWebRequest < Sinatra::Base
 #-------------
   protected
 
-  def set_up_pusher
-    Pusher.app_id = ENV['PUSHER_APP_ID']
-    Pusher.key    = ENV['PUSHER_KEY']
-    Pusher.secret = ENV['PUSHER_SECRET']
-    Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from set_up_pusher in Sinatra app'
-    'Pushed to pusher'
-  end
-
-  def set_up_amqp
-    u = ENV['CLOUDAMQP_URL']
-    halt if u.nil? || ''==u
-#    b = Bunny.new u
-    b = Bunny.new
-    b.start # Does not return b.
-    @bunny_queue = b.queue 'test1'
-    b.exchange('').publish 'Hello from set_up_amqp', :key => 'test1'
-  end
-
-  def set_up_memcachier
-#    Rails.cache.write 'foo', 'Hello from set_up_memcachier in Sinatra app'
-#    cache = Dalli::Client.new 'localhost:11211'
-#    settings.cache.set 'foo', 'Hello from set_up_memcachier in Sinatra app'
-    c=Dalli::Client.new
-    c.set 'foo', 'Hello from set_up_memcachier in Sinatra app'
-  end
-
-  def version
-    '0.0.0'
-  end
-
-  def site_name
-    'Delayed Web Request'
-  end
-
   def set_home
     @version        =  version
     @site_name      =  site_name
@@ -96,6 +74,31 @@ class DelayedWebRequest < Sinatra::Base
     @blog_post_url  = 'http://markdblackwell.blogspot.com/2012/07/manage-long-running-external-webservice.html'
     @user_name      = 'Rails developer'
   end
+
+  def set_up_amqp
+    u = ENV['CLOUDAMQP_URL']
+    return 'u is nil' if u.nil?
+    b = Bunny.new
+    b.start # Does not return b.
+    @bunny_queue = b.queue 'test1'
+    b.exchange('').publish 'Hello from Sinatra app, set_up_amqp', :key => 'test1'
+  end
+
+  def set_up_memcachier
+    c=Dalli::Client.new 'localhost:11211'
+    c.set 'foo', 'Hello from Sinatra app, set_up_memcachier'
+  end
+
+  def set_up_pusher
+    Pusher.app_id = ENV['PUSHER_APP_ID']
+    Pusher.key    = ENV['PUSHER_KEY'   ]
+    Pusher.secret = ENV['PUSHER_SECRET']
+    Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from Sinatra app, set_up_pusher'
+  end
+
+  def site_name() 'Delayed Web Request' end
+
+  def version() '0.0.0' end
 
 end
 
