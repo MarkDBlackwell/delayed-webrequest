@@ -1,8 +1,17 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
+require 'bunny'
+require 'dalli'
+
+# require 'memcachier' # As of July 12, 2012 not working (v 0.0.1).
 require 'pusher'
 
 class DelayedWebRequest < Sinatra::Base
+
+#  set :cache, (Dalli::Client.new 'localhost:11211')
+#  set :cache, (Dalli::Client.new '127.0.0.1:11211')
+#  set :cache, (Dalli::Client.new '127.0.0.1:11211', :username => 'mark', :password => '')
+#  set :enable_cache, true
 
   configure :development do
     Sinatra::Application.reset!    
@@ -25,6 +34,18 @@ class DelayedWebRequest < Sinatra::Base
     set_up_pusher
   end
 
+  get '/amqp' do
+    set_up_amqp
+#    'trying amqp' + @bunny_queue.pop[:payload].to_s
+    @bunny_queue.pop[:payload].to_s
+    'trying amqp'
+  end
+
+  get '/mem' do
+    set_up_memcachier
+    'ran memcachier'
+  end
+
   get '/' do
     set_home
     erb :'index.html'
@@ -39,6 +60,24 @@ class DelayedWebRequest < Sinatra::Base
     Pusher.secret = ENV['PUSHER_SECRET']
     Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from set_up_pusher in Sinatra app'
     'Pushed to pusher'
+  end
+
+  def set_up_amqp
+    u = ENV['CLOUDAMQP_URL']
+    halt if u.nil? || ''==u
+#    b = Bunny.new u
+    b = Bunny.new
+    b.start # Does not return b.
+    @bunny_queue = b.queue 'test1'
+    b.exchange('').publish 'Hello from set_up_amqp', :key => 'test1'
+  end
+
+  def set_up_memcachier
+#    Rails.cache.write 'foo', 'Hello from set_up_memcachier in Sinatra app'
+#    cache = Dalli::Client.new 'localhost:11211'
+#    settings.cache.set 'foo', 'Hello from set_up_memcachier in Sinatra app'
+    c=Dalli::Client.new
+    c.set 'foo', 'Hello from set_up_memcachier in Sinatra app'
   end
 
   def version
