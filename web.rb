@@ -1,6 +1,13 @@
 require 'sinatra/base'
+require 'sinatra/reloader'
+require 'pusher'
 
 class DelayedWebRequest < Sinatra::Base
+
+  configure :development do
+    Sinatra::Application.reset!    
+    register Sinatra::Reloader
+  end
 
   get '/hello/:name' do
     "Hello, #{params[:name]} (from #{site_name} v#{version})!"
@@ -15,7 +22,7 @@ class DelayedWebRequest < Sinatra::Base
   end
 
   get '/pusher' do
-
+    set_up_pusher
   end
 
   get '/' do
@@ -25,6 +32,14 @@ class DelayedWebRequest < Sinatra::Base
 
 #-------------
   protected
+
+  def set_up_pusher
+    Pusher.app_id = ENV['PUSHER_APP_ID']
+    Pusher.key    = ENV['PUSHER_KEY']
+    Pusher.secret = ENV['PUSHER_SECRET']
+    Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from set_up_pusher in Sinatra app'
+    'Pushed to pusher'
+  end
 
   def version
     '0.0.0'
