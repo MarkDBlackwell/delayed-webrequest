@@ -72,7 +72,7 @@ class DelayedWebRequest < Sinatra::Base
     @owner_name     = 'Mark D. Blackwell'
     @copyright_year = '2012'
     @blog_post_url  = 'http://markdblackwell.blogspot.com/2012/07/manage-long-running-external-webservice.html'
-    @user_name      = 'Rails developer'
+    @user_name      = 'Rails developers'
   end
 
   def set_up_amqp
@@ -106,7 +106,7 @@ class DelayedWebRequest < Sinatra::Base
     Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from Sinatra app, set_up_pusher'
   end
 
-  def site_name() 'Delayed Web Request' end
+  def site_name() 'Delayed WebRequest' end
 
   def version() '0.0.0' end
 

@@ -38,83 +38,106 @@ Released   : 20120205
 				<h2>Welcome, <%= @user_name %>, to <%= @site_name %>.</h2>
 <p>
 We help Rails apps 
-scale,
+scale up,
 in the cloud. 
+(Available soon.) 
 </p>
 <p>
-Let's say you have a Rails app —
-the usual 
-(threaded or unthreaded, synchronous, 
+Let's say you have a Rails app of
+the usual kind.
+(Threaded or unthreaded, synchronous, 
 Rails 3 
 or 
-Rails 2. Any kind of web app will do; 
-it doesn't even have to be
-Rails.) 
+Rails 2.) Any kind of web app will do —
+even 
+if it's not 
+Rails.
 </p>
 <p>
-Maybe your app
-slows to a crawl 
-if external services you access 
-aren't there (right away).
-Because (you know) 
-thousands (even 
-sometimes 
-scores) 
-of Rails instances 
+Maybe your app 
+unfortunately
+slows to a crawl, 
+if external services 
+aren't there
+right away,
+right when you want to 
+access them.
+Because you know 
+thousands
+of Rails instances, 
+even hundreds,
 can't be up and running
-at the same time.
+all at once.
+Rails is too big 
+and multifunctional
+for that!
 </p>
 <p>
 
-Delays come from 
-browser short-polling also —
+Delays come also from 
+short-polling in the 
+browser —
 checking too late, 
-checking too early,
+checking too early:
 loading up the server.
-(You know) 
+You know 
 you can't win
-that way.
+that way!
 </p>
 <p>
-This makes the user experience ...
-not really what it should be.
+This makes the user experience really ...
+not what it should be.
 And that bothers you. 
-(That's why you're so interested in 
-node.js and asynchronous processing.)
+So you got 
+interested in 
+node.js and asynchronous processing.
 But for a big app ...
 it's too hard to code 
 that way!
 </p>
 <p>
-We can help. 
-We can handle your
+We can help your app get snappy.
+With RabbitMQ, Memcache and PusherApp,
+we handle 
+all the
 external webservice requests
-(at your pleasure) 
-with RabbitMQ, Memcache and PusherApp. 
-When we receive a response to a request, 
-we Memcache it (for you) 
-and (directly)
-tell your browser to try 
-its AJAX request again. (See 
+you wish.
+We Memcache 
+each response
+as soon as it comes,
+with 
+<a href="http://rubyeventmachine.com/">EventMachine</a>.
+Then we 
+directly
+tell your browser 
+to try 
+its AJAX request again,
+so you don't have to.
+(For details, see 
 <a href="<%= @blog_post_url %>">this</a> 
 blog post.)
 </p>
 <p>
-Try it for free! 
-— (at this time).
-It couldn't be easier!
-For setup information, email 
-markdblackwell01 (at) @gmail.com
-— (more info here soon).
+Try 
+<%= @site_name %>
+— it's free, and easy!
+Email 
+markdblackwell01 at @gmail.com
+for setup information
+(more here soon).
 </p>
 <p>
-If our service 
+If 
+<%= @site_name %>
 becomes 
-terribly busy, 
-we might start charging a few cents
-(for some huge number of 
-events,
-or for an hour of clock time).
+terribly busy 
+and our business booms,
+then for some
+huge number of 
+requests
+(maybe for an hour of clock time)
+we might charge
+a few cents.
 </p>
 <p>
 (Available soon.) 
