@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'bunny'
 require 'dalli'
-## require 'memcachier' # As of July 12, 2012 not working (v 0.0.1).
+require 'memcachier' # As of July 12, 2012 not working (v 0.0.1).
 require 'pusher'
 
 class DelayedWebRequest < Sinatra::Base
