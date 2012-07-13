@@ -82,7 +82,7 @@ class DelayedWebRequest < Sinatra::Base
     default_exchange_name = '' # Binds to all queues.
     my_exchange_name = default_exchange_name
 
-    b = Bunny.new
+    b = Bunny.new u
     b.start # Does not return b. Start a connection to AMQP.
 
     q = b.queue my_queue_name # Create or access the queue.
