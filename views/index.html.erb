@@ -27,6 +27,7 @@ Released   : 20120205
 		<div id="menu">
 			<ul>
 				<li class="first current_page_item"><a href="/">Homepage</a></li>
+				<li class="current_page_item"><a href="/demo">Demo</a></li>
 				<li class="last current_page_item"><a href="/login">Login</a></li>
 			</ul>
 			<br class="clearfix" />
@@ -48,7 +49,7 @@ the usual kind.
 (Threaded or unthreaded, synchronous, 
 Rails 3 
 or 
-Rails 2.) Any kind of web app will do —
+2.) Any kind of web app will do —
 even 
 if it's not 
 Rails.
@@ -62,6 +63,8 @@ aren't there
 right away,
 right when you want to 
 access them.
+</p>
+<p>
 Because you know 
 thousands
 of Rails instances, 
@@ -96,31 +99,30 @@ it's too hard to code
 that way!
 </p>
 <p>
-We can help your app get snappy.
-With RabbitMQ, Memcache and PusherApp,
-we handle 
+We can help your app get snappy
+with RabbitMQ, Memcache and PusherApp.
+We handle 
 all the
 external webservice requests
 you wish.
 We Memcache 
 each response
-as soon as it comes,
-with 
-<a href="http://rubyeventmachine.com/">EventMachine</a>.
+as soon as it comes with 
+<a href="http://rubyeventmachine.com/">EventMachine</a>
+and Sinatra.
 Then we 
 directly
 tell your browser 
 to try 
 its AJAX request again,
 so you don't have to.
-(For details, see 
-<a href="<%= @blog_post_url %>">this</a> 
-blog post.)
+(See further
+<a href="<%= @blog_post_url %>">details</a>.)
 </p>
 <p>
 Try 
 <%= @site_name %>
-— it's free, and easy!
+ — it's easy, and free!
 Email 
 markdblackwell01 at @gmail.com
 for setup information
@@ -128,7 +130,7 @@ for setup information
 </p>
 <p>
 If 
-<%= @site_name %>
+<%= @site_name %> 
 becomes 
 terribly busy 
 and our business booms,
@@ -149,7 +151,7 @@ a few cents.
 			<h3>News</h3>
 			<div class="date-list">
 				<ul class="list date-list">
-					<li class="first last"><span class="date">July 9, 2012</span> <a href="#">Welcome</a></li>
+					<li class="first last"><span class="date">July 9, 2012</span> <a href="/">Welcome</a></li>
 				</ul>
 			</div>
 		</div>

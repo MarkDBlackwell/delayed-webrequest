@@ -36,6 +36,10 @@ class DelayedWebRequest < Sinatra::Base
     'Ran amqp'
   end
 
+  get '/demo' do
+    "nothing here yet."
+  end
+
   get '/hello/:name' do
     "Hello, #{params[:name]} (from #{site_name} v#{version})!"
   end
