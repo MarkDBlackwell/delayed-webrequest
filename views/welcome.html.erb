@@ -1,5 +1,5 @@
 <div id="post1">
-	<h2>Welcome, <%= @user_name %>, to <%= @site_name %>.</h2>
+	<h2>Welcome, Rails developers, to <%= @site_name %>.</h2>
 
 <p>We help Rails apps to scale up, in the cloud. (Available soon.)</p>
 
@@ -9,7 +9,7 @@ web app will do — even if it's not Rails.</p>
 <p>Maybe your app unfortunately slows to a crawl if external services aren't there right away when you want to access 
 them.</p>
 
-<p>Because as you know, thousands of Rails instances, even hundreds, can't be up and running all at once. Rails is too 
+<p>Because as you know, thousands of Rails instances, even hundreds, cannot be up and running all at once. Rails is too 
 big and multifunctional for that!</p>
 
 <p>Delays also come from short-polling — the browser asking too late, or too early: loading up the server. You know you 
@@ -18,14 +18,14 @@ can't win that way!</p>
 <p>This makes your user experience really ... not what it should be. And that bothers you. So you got interested in 
 node.js and asynchronous processing. But for a big app ... it's too hard to code that way!</p>
 
-<p>We put that snappiness back in your app with PusherApp, Memcache and RabbitMQ.</p>
+<p>We put the 'snappy' back in your app with PusherApp, Memcache and RabbitMQ.</p>
 
-<p>Using RabbitMQ, tell us all the external webservice requests you want and we will do them with <a 
-href="http://rubyeventmachine.com/">EventMachine</a> and Sinatra, and Memcache the responses to you as soon as each is 
-available. We'll directly tell your browser to make the AJAX request, so you don't have to. (Please see further <a 
-href="<%= @blog_post_url %>">details</a>.)</p>
+<p>Using RabbitMQ, tell us all the requests to external webservices you want and we will do them with <a 
+href="http://rubyeventmachine.com/">EventMachine</a> and Sinatra, and Memcache their responses to you, as soon as each 
+is available. We'll directly tell your browser to make the AJAX request, so you don't have to. (Please see further <a 
+href="http://markdblackwell.blogspot.com/2012/07/manage-long-running-external-webservice.html">details</a>.)</p>
 
-<p>Try <%= @site_name %> — it's easy, and free (for now)! Email markdblackwell01 at @gmail.com for setup information 
+<p>Try <%= @site_name %>! — it's easy, and free — for now. Email markdblackwell01 at @gmail.com for setup information 
 (more here soon).</p>
 
 <p>If <%= @site_name %> becomes terribly busy, if our business booms, then for a huge number of requests (maybe for an 

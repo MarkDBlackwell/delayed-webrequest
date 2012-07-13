@@ -23,6 +23,9 @@ Released   : 20120205
 <body>
 <div id="wrapper">
 	<div id="header">
+		<div id="user">
+			<%= @user_name %>
+		</div>
 		<div id="logo">
 			<h1><a href="#"><%= @site_name %></a></h1>
 		</div>
@@ -30,7 +33,8 @@ Released   : 20120205
 			<ul>
 				<li class="first current_page_item"><a href="/">Homepage</a></li>
 				<li class="current_page_item"><a href="/demo">Demo</a></li>
-				<li class="last current_page_item"><a href="/login">Login</a></li>
+				<li class="current_page_item"><a href="/login?name=">Login</a></li>
+				<li class="last current_page_item"><a href="/logout">Logout</a></li>
 			</ul>
 			<br class="clearfix" />
 		</div>

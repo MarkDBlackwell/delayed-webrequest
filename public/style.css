@@ -44,7 +44,6 @@ br.clearfix {
 
 h1,h2,h3,h4 {
 	letter-spacing: -1px;
-/*	text-transform: lowercase; */
 	font-weight: normal;
 }
 
@@ -105,7 +104,6 @@ ul h4 {
 	text-align: center;
 	margin: 0 0 20px 0;
 	color: #808384;
-/*	text-transform: lowercase; */
 }
 
 #footer a {
@@ -164,6 +162,10 @@ ul h4 {
 #menu ul li {
 	display: inline;
 	padding: 0 10px 0 10px;
+}
+
+#user {
+	float: right;
 }
 
 #page {

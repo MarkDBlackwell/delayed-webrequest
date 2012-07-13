@@ -7,6 +7,11 @@ require 'pusher'
 
 class DelayedWebRequest < Sinatra::Base
 
+  s = ENV['SESSION_SECRET']
+  raise if s.nil? || ''==s
+  set :session_secret, s
+
+## Tilt.register :'html.erb', Tilt[:erb]
   set :erb, :layout => :'layout.html'
 
   configure do
@@ -14,6 +19,7 @@ class DelayedWebRequest < Sinatra::Base
     enable :lock
     enable :logging
     enable :raise_errors
+    enable :sessions
 
     disable :threaded
   end
@@ -21,6 +27,14 @@ class DelayedWebRequest < Sinatra::Base
   configure :development do
     Sinatra::Application.reset!    
     register Sinatra::Reloader
+  end
+
+  before do
+    @copyright_year = '2012'
+    @owner_name     = 'Mark D. Blackwell'
+    @site_name      = 'Delayed WebRequest'
+    @version        = '0.0.0'
+    refresh_user_name
   end
 
   get '/all' do
@@ -31,36 +45,40 @@ class DelayedWebRequest < Sinatra::Base
   end
 
   get '/demo' do
-    erb "nothing here yet."
-  end
-
-  get '/hello/:name' do
-    erb "Hello, #{params[:name]} (from #{site_name} v#{version})!"
+    erb "Nothing here yet."
   end
 
   get '/hello' do
-    erb "Hello, world2 (from #{site_name} v#{version})!"
+    s = @user_name
+    s = s.nil? ? 'World' : s
+    erb "Hello, #{ s } (from #{site_name} v#{version})!"
   end
 
   get '/login' do
-    erb "nothing here yet."
+    session[:user_name] = params[:name]
+    refresh_user_name
+    if ''==@user_name
+      erb 'Error: name cannot be blank (see address bar).'
+    else
+      erb "Nothing here yet."
+    end
+  end
+
+  get '/logout' do
+    session[:user_name] = nil
+    refresh_user_name
+    erb "Logged out."
   end
 
   get '/' do
-    set_home
     erb :'welcome.html'
   end
 
 #-------------
   protected
 
-  def set_home
-    @version        =  version
-    @site_name      =  site_name
-    @owner_name     = 'Mark D. Blackwell'
-    @copyright_year = '2012'
-    @blog_post_url  = 'http://markdblackwell.blogspot.com/2012/07/manage-long-running-external-webservice.html'
-    @user_name      = 'Rails developers'
+  def refresh_user_name
+    @user_name = session[:user_name]
   end
 
   def set_up_amqp
@@ -93,10 +111,6 @@ class DelayedWebRequest < Sinatra::Base
     Pusher.secret = ENV['PUSHER_SECRET']
     Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from Sinatra app, set_up_pusher'
   end
-
-  def site_name() 'Delayed WebRequest' end
-
-  def version() '0.0.0' end
 
 end
 
