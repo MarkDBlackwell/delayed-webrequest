@@ -39,7 +39,7 @@ Released   : 20120205
 				<h2>Welcome, <%= @user_name %>, to <%= @site_name %>.</h2>
 <p>
 We help Rails apps 
-scale up,
+to scale up,
 in the cloud. 
 (Available soon.) 
 </p>
@@ -57,11 +57,10 @@ Rails.
 <p>
 Maybe your app 
 unfortunately
-slows to a crawl, 
+slows to a crawl 
 if external services 
-aren't there
-right away,
-right when you want to 
+aren't there right away
+when you want to 
 access them.
 </p>
 <p>
@@ -80,8 +79,8 @@ for that!
 Delays come also from 
 short-polling in the 
 browser —
-checking too late, 
-checking too early:
+asking too late, 
+or too early:
 loading up the server.
 You know 
 you can't win
@@ -99,24 +98,32 @@ it's too hard to code
 that way!
 </p>
 <p>
-We can help your app get snappy
-with RabbitMQ, Memcache and PusherApp.
-We handle 
+We make
+your app feel
+that snappiness
+again with 
+PusherApp, Memcache and RabbitMQ.
+</p>
+<p>
+Tell us with RabbitMQ
 all the
 external webservice requests
-you wish.
-We Memcache 
-each response
-as soon as it comes with 
+you want
+and we will do them
+with 
 <a href="http://rubyeventmachine.com/">EventMachine</a>
-and Sinatra.
-Then we 
-directly
+and Sinatra,
+and Memcache 
+the responses
+for you 
+as soon as each is available.
+We'll 
 tell your browser 
-to try 
-its AJAX request again,
+to make
+the AJAX request
+directly, 
 so you don't have to.
-(See further
+(Please see further
 <a href="<%= @blog_post_url %>">details</a>.)
 </p>
 <p>
