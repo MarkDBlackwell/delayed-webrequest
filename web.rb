@@ -2,10 +2,12 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'bunny'
 require 'dalli'
-require 'memcachier' # As of July 12, 2012 not working (v 0.0.1).
+require 'memcachier'
 require 'pusher'
 
 class DelayedWebRequest < Sinatra::Base
+
+  set :erb, :layout => :'layout.html'
 
   configure do
     enable :dump_errors
@@ -25,46 +27,28 @@ class DelayedWebRequest < Sinatra::Base
     s = set_up_amqp
     set_up_memcachier
     set_up_pusher
-##  'Ran all'
-    s
-  end
-
-  get '/amqp' do
-    set_up_amqp
-    return '@bunny_queue is nil' if @bunny_queue.nil?
-##  'From amqp: ' + @bunny_queue.pop[:payload].to_s
-    'Ran amqp'
+    erb s
   end
 
   get '/demo' do
-    "nothing here yet."
+    erb "nothing here yet."
   end
 
   get '/hello/:name' do
-    "Hello, #{params[:name]} (from #{site_name} v#{version})!"
+    erb "Hello, #{params[:name]} (from #{site_name} v#{version})!"
   end
 
   get '/hello' do
-    "Hello, world2 (from #{site_name} v#{version})!"
+    erb "Hello, world2 (from #{site_name} v#{version})!"
   end
 
   get '/login' do
-    "nothing here yet."
-  end
-
-  get '/mem' do
-    set_up_memcachier
-    'ran memcachier'
-  end
-
-  get '/pusher' do
-    set_up_pusher
-    'Pushed to pusher'
+    erb "nothing here yet."
   end
 
   get '/' do
     set_home
-    erb :'index.html'
+    erb :'welcome.html'
   end
 
 #-------------
