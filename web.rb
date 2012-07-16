@@ -37,21 +37,17 @@ class DelayedWebRequest < Sinatra::Base
     refresh_user_name
   end
 
-  get '/all' do
+  get '/demo' do
     s = set_up_amqp
     set_up_memcachier
     set_up_pusher
-    erb s
-  end
-
-  get '/demo' do
-    erb "Nothing here yet."
-  end
-
-  get '/hello' do
-    s = @user_name
-    s = s.nil? ? 'World' : s
-    erb "Hello, #{ s } (from #{site_name} v#{version})!"
+    erb \
+        "You should bring "\
+        "<a href=\"delayed-webrequest-demo.herokuapp.com\">this</a> "\
+        "up in another window (or tab)."\
+        "<br />"\
+        "<br />"\
+        "#{s}"
   end
 
   get '/login' do
