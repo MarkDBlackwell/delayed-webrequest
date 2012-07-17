@@ -47,7 +47,13 @@ class DelayedWebRequest < Sinatra::Base
         "up in another window (or tab)."\
         "<br />"\
         "<br />"\
-        "#{s}"
+        "#{s}"\
+        "<br />"\
+        "<br />"\
+        "Then come back here and refresh the screen."\
+        "<br />"\
+        "<br />"\
+        "Click OK in the alert box, and you'll see the page change dynamically."
   end
 
   get '/login' do
