@@ -43,7 +43,7 @@ class DelayedWebRequest < Sinatra::Base
     set_up_pusher
     erb \
         "You should bring "\
-        "<a href=\"delayed-webrequest-demo.herokuapp.com\">this</a> "\
+        "<a href=\"http://delayed-webrequest-demo.herokuapp.com\">this</a> "\
         "up in another window (or tab)."\
         "<br />"\
         "<br />"\
