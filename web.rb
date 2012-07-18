@@ -91,7 +91,9 @@ class DelayedWebRequest < Sinatra::Base
   end
 
   def set_up_memcachier
-    c=Dalli::Client.new 'localhost:11211'
+    c=Dalli::Client.new ENV['MEMCACHIER_SERVERS' ], {
+        :username    => ENV['MEMCACHIER_USERNAME'],
+        :password    => ENV['MEMCACHIER_PASSWORD']  }
     c.set 'foo', 'Hello from Sinatra app (Memcachier)'
   end
 
