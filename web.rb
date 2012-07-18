@@ -25,7 +25,7 @@ class DelayedWebRequest < Sinatra::Base
   end
 
   configure :development do
-    Sinatra::Application.reset!    
+    Sinatra::Application.reset!
     register Sinatra::Reloader
   end
 
@@ -38,22 +38,10 @@ class DelayedWebRequest < Sinatra::Base
   end
 
   get '/demo' do
-    s = set_up_amqp
+    @amqp_message = set_up_amqp
     set_up_memcachier
     set_up_pusher
-    erb \
-        "You should bring "\
-        "<a href=\"http://delayed-webrequest-demo.herokuapp.com\">this</a> "\
-        "up in another window (or tab)."\
-        "<br />"\
-        "<br />"\
-        "#{s}"\
-        "<br />"\
-        "<br />"\
-        "Then come back here and refresh the screen."\
-        "<br />"\
-        "<br />"\
-        "Click OK in the alert box, and you'll see the page change dynamically."
+    erb :'demo.html'
   end
 
   get '/login' do
