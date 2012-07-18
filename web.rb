@@ -85,21 +85,21 @@ class DelayedWebRequest < Sinatra::Base
     raise 'q is nil' if q.nil?
 
     e = b.exchange my_exchange_name # Use a direct exchange.
-    s = 'From amqp: ' + q.pop[:payload].to_s
+    s = q.pop[:payload].to_s
     b.stop # Close the connection to AMQP.
     s
   end
 
   def set_up_memcachier
     c=Dalli::Client.new 'localhost:11211'
-    c.set 'foo', 'Hello from Sinatra app, set_up_memcachier'
+    c.set 'foo', 'Hello from Sinatra app (Memcachier)'
   end
 
   def set_up_pusher
     Pusher.app_id = ENV['PUSHER_APP_ID']
     Pusher.key    = ENV['PUSHER_KEY'   ]
     Pusher.secret = ENV['PUSHER_SECRET']
-    Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from Sinatra app, set_up_pusher'
+    Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from Sinatra app (Pusher)'
   end
 
 end
