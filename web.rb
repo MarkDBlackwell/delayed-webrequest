@@ -72,13 +72,12 @@ class DelayedWebRequest < Sinatra::Base
   end
 
   def set_up_amqp
-    u = ENV['CLOUDAMQP_URL']
-    return 'u is nil' if u.nil?
     my_queue_name = 'test1'
     default_exchange_name = '' # Binds to all queues.
     my_exchange_name = default_exchange_name
-
-    b = Bunny.new u
+    u = ENV['CLOUDAMQP_URL']
+    return 'u is nil' if u.nil?
+    b = (u.nil? || ''==u) ? Bunny.new : (Bunny.new u)
     b.start # Does not return b. Start a connection to AMQP.
 
     q = b.queue my_queue_name # Create or access the queue.
