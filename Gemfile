@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 # ruby '1.9.2'
 ruby '1.9.3'
 
-gem 'bundler', '~>1.2.0.pre'
+gem 'bundler', '~>1.2.0.rc'
 
 gem 'bunny'
 gem 'dalli'

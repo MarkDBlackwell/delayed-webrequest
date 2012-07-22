@@ -1,7 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    backports (2.6.1)
+    backports (2.6.2)
     bunny (0.8.0)
     daemons (1.1.8)
     dalli (2.1.0)
@@ -40,7 +40,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  bundler (~> 1.2.0.pre)
+  bundler (~> 1.2.0.rc)
   bunny
   dalli
   eventmachine (~> 1.0.0.rc.4)
