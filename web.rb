@@ -7,11 +7,14 @@ require 'pusher'
 
 class DelayedWebRequest < Sinatra::Base
 
-  s = ENV['SESSION_SECRET']
-  raise if s.nil? || ''==s
-  set :session_secret, s
+  def self.set_session_secret # Keep this above its invocation.
+    s = ENV['SESSION_SECRET']
+    raise if s.nil? || ''==s
+    set :session_secret, s
+  end
 
 ## Tilt.register :'html.erb', Tilt[:erb]
+
   set :erb, :layout => :'layout.html'
 
   configure do
@@ -21,12 +24,14 @@ class DelayedWebRequest < Sinatra::Base
     enable :raise_errors
     enable :sessions
 
+    disable :protection
     disable :threaded
+    set_session_secret
   end
 
   configure :development do
-    Sinatra::Application.reset!
-    register Sinatra::Reloader
+#    Sinatra::Application.reset!
+#    register Sinatra::Reloader
   end
 
   before do
@@ -38,7 +43,8 @@ class DelayedWebRequest < Sinatra::Base
   end
 
   get '/demo' do
-    @amqp_message = set_up_amqp
+    b, q = set_up_amqp
+    @amqp_message = pop_message q
     set_up_memcachier
     set_up_pusher
     erb :'demo.html'
@@ -67,26 +73,51 @@ class DelayedWebRequest < Sinatra::Base
 #-------------
   protected
 
+  def amqp_url
+    # ENV['CLOUDAMQP_URL']
+    'amqp://guest:guest@disk30:5672'
+  end
+
+  def binding_key
+    # 'delayed-webrequest'
+    ''
+  end
+
+  def close_amqp(b)
+    b.stop
+  end
+
+  def create_or_access_queue(b)
+    q = b.queue queue_name,
+        :binding_key => binding_key
+    raise 'q is nil' if q.nil?
+    q
+  end
+
+  def exchange_name
+    # 'com.herokuapp.delayed-webrequest.exchange'
+    default_exchange_name = '' # Binds to all queues.
+  end
+
+  def pop_message(q)
+    q.pop[:payload].to_s
+  end
+
+  def queue_name
+    # 'com.herokuapp.delayed-webrequest.queue'
+    # 'test1'
+    ''
+  end
+
   def refresh_user_name
     @user_name = session[:user_name]
   end
 
   def set_up_amqp
-    my_queue_name = 'test1'
-    default_exchange_name = '' # Binds to all queues.
-    my_exchange_name = default_exchange_name
-    u = ENV['CLOUDAMQP_URL']
-    return 'u is nil' if u.nil?
-    b = (u.nil? || ''==u) ? Bunny.new : (Bunny.new u)
-    b.start # Does not return b. Start a connection to AMQP.
-
-    q = b.queue my_queue_name # Create or access the queue.
-    raise 'q is nil' if q.nil?
-
-    e = b.exchange my_exchange_name # Use a direct exchange.
-    s = q.pop[:payload].to_s
-    b.stop # Close the connection to AMQP.
-    s
+    b = start_amqp_connection
+    q = create_or_access_queue b
+    e = use_exchange b
+    [b, q]
   end
 
   def set_up_memcachier
@@ -103,5 +134,20 @@ class DelayedWebRequest < Sinatra::Base
     Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from Sinatra app (Pusher)'
   end
 
-end
+  def start_amqp_connection
+    u = amqp_url
+    raise 'u is nil' if u.nil?
+    o = { \
+          :logfile => 'log/bunny.log', # Not on Heroku.
+          :logging => true
+        }
+    b = ('' == u) ? (Bunny.new o) : (Bunny.new u, o)
+    b.start # Does not return b. 
+    b
+  end
 
+  def use_exchange(b)
+    e = b.exchange exchange_name
+  end
+
+end

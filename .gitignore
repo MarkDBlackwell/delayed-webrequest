@@ -4,6 +4,7 @@
 /.foreman
 /local-env
 /download/
+/log/*
 /out/
 /private/
 copy-of-*
