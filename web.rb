@@ -30,8 +30,8 @@ class DelayedWebRequest < Sinatra::Base
   end
 
   configure :development do
-#    Sinatra::Application.reset!
-#    register Sinatra::Reloader
+    Sinatra::Application.reset!
+    register Sinatra::Reloader
   end
 
   before do
@@ -47,6 +47,7 @@ class DelayedWebRequest < Sinatra::Base
     @amqp_message = pop_message q
     set_up_memcachier
     set_up_pusher
+    close_amqp_connection b
     erb :'demo.html'
   end
 
@@ -80,16 +81,18 @@ class DelayedWebRequest < Sinatra::Base
 
   def binding_key
     # 'delayed-webrequest'
-    ''
+    # ''
+    'test1'
   end
 
-  def close_amqp(b)
+  def close_amqp_connection(b)
     b.stop
   end
 
   def create_or_access_queue(b)
-    q = b.queue queue_name,
-        :binding_key => binding_key
+    q = b.queue queue_name
+#    q = b.queue queue_name,
+#        :binding_key => binding_key
     raise 'q is nil' if q.nil?
     q
   end
@@ -99,14 +102,27 @@ class DelayedWebRequest < Sinatra::Base
     default_exchange_name = '' # Binds to all queues.
   end
 
+  def open_amqp_connection
+    u = amqp_url
+    raise 'u is nil' if u.nil?
+    o = { \
+          :logfile => 'log/bunny.log', # Not on Heroku.
+          :logging => true
+        }
+#   b = ('' == u) ? (Bunny.new o) : (Bunny.new u, o)
+    b = Bunny.new
+    b.start # Does not return b. 
+    b
+  end
+
   def pop_message(q)
     q.pop[:payload].to_s
   end
 
   def queue_name
     # 'com.herokuapp.delayed-webrequest.queue'
-    # 'test1'
-    ''
+    # ''
+    'test1'
   end
 
   def refresh_user_name
@@ -114,8 +130,9 @@ class DelayedWebRequest < Sinatra::Base
   end
 
   def set_up_amqp
-    b = start_amqp_connection
+    b = open_amqp_connection
     q = create_or_access_queue b
+
     e = use_exchange b
     [b, q]
   end
@@ -134,20 +151,8 @@ class DelayedWebRequest < Sinatra::Base
     Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from Sinatra app (Pusher)'
   end
 
-  def start_amqp_connection
-    u = amqp_url
-    raise 'u is nil' if u.nil?
-    o = { \
-          :logfile => 'log/bunny.log', # Not on Heroku.
-          :logging => true
-        }
-    b = ('' == u) ? (Bunny.new o) : (Bunny.new u, o)
-    b.start # Does not return b. 
-    b
-  end
-
   def use_exchange(b)
-    e = b.exchange exchange_name
+    b.exchange exchange_name
   end
 
 end
