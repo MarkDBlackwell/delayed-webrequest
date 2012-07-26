@@ -110,7 +110,7 @@ class DelayedWebRequest < Sinatra::Base
           :logging => true
         }
 #   b = ('' == u) ? (Bunny.new o) : (Bunny.new u, o)
-    b = Bunny.new
+    b = Bunny.new u
     b.start # Does not return b. 
     b
   end
