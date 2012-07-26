@@ -75,8 +75,8 @@ class DelayedWebRequest < Sinatra::Base
   protected
 
   def amqp_url
-    # ENV['CLOUDAMQP_URL']
-    'amqp://guest:guest@disk30:5672'
+    # 'amqp://guest:guest@disk30:5672'
+    ENV['CLOUDAMQP_URL']
   end
 
   def binding_key
