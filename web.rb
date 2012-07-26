@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'bunny'
 require 'dalli'
-require 'memcachier'
+require 'json'
 require 'pusher'
 
 # %%demo
@@ -51,8 +51,7 @@ class DelayedWebRequest < Sinatra::Base
     if s == payload
       @amqp_message = s
     else
-##    data = JSON.parse '{ "pusher_channel" : "abc_xyz" }'
-      data = JSON.parse payload
+      data = ::JSON.parse payload
       set_up_memcachier
       pusher_channel = data['pusher_channel']
       @amqp_message  = data['message']
@@ -159,7 +158,6 @@ class DelayedWebRequest < Sinatra::Base
     Pusher.app_id = ENV['PUSHER_APP_ID']
     Pusher.key    = ENV['PUSHER_KEY'   ]
     Pusher.secret = ENV['PUSHER_SECRET']
-#   Pusher['abc_xyz'].trigger 'updates_ready', :message => 'Hello from Sinatra app (Pusher)'
     Pusher[channel].trigger 'updates_ready', :message => 'Hello from Sinatra app (Pusher)'
   end
 

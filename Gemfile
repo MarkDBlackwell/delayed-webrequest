@@ -8,7 +8,6 @@ gem 'bundler', '~>1.2.0.rc'
 gem 'bunny'
 gem 'dalli'
 gem 'eventmachine', '~>1.0.0.rc.4'
-gem 'memcachier'
 gem 'pusher'
 
 # gem 'shotgun' # On Windows, use my fork instead--but neither work!
