@@ -5,6 +5,8 @@ require 'dalli'
 require 'memcachier'
 require 'pusher'
 
+# %%demo
+
 class DelayedWebRequest < Sinatra::Base
 
   def self.set_session_secret # Keep this above its invocation.
@@ -44,9 +46,18 @@ class DelayedWebRequest < Sinatra::Base
 
   get '/demo' do
     b, q = set_up_amqp
-    @amqp_message = pop_message q
-    set_up_memcachier
-    set_up_pusher
+    payload = pop_message q
+    s = 'queue_empty'
+    if s == payload
+      @amqp_message = s
+    else
+##    data = JSON.parse '{ "pusher_channel" : "abc_xyz" }'
+      data = JSON.parse payload
+      set_up_memcachier
+      pusher_channel = data['pusher_channel']
+      @amqp_message  = data['message']
+      set_up_pusher pusher_channel
+    end
     close_amqp_connection b
     erb :'demo.html'
   end
@@ -144,11 +155,12 @@ class DelayedWebRequest < Sinatra::Base
     c.set 'foo', 'Hello from Sinatra app (Memcachier)'
   end
 
-  def set_up_pusher
+  def set_up_pusher(channel)
     Pusher.app_id = ENV['PUSHER_APP_ID']
     Pusher.key    = ENV['PUSHER_KEY'   ]
     Pusher.secret = ENV['PUSHER_SECRET']
-    Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from Sinatra app (Pusher)'
+#   Pusher['abc_xyz'].trigger 'updates_ready', :message => 'Hello from Sinatra app (Pusher)'
+    Pusher[channel].trigger 'updates_ready', :message => 'Hello from Sinatra app (Pusher)'
   end
 
   def use_exchange(b)
